@@ -19,12 +19,14 @@
             </div>
             <div class="form-group">
                 <label asp-for="ResumoPost" class="control-label"></label>
-                <textarea asp-for="ResumoPost" class="form-control"></textarea> 
+                <input asp-for="ResumoPost" class="form-control" /> 
                 <span asp-validation-for="ResumoPost" class="text-danger"></span>
             </div>
+
+            <!-- Implementação de editor de texto avançado, adicionar o id, class="ckeditor" e name -->
             <div class="form-group">
                 <label asp-for="ConteudoPost" class="control-label"></label>
-                <textarea asp-for="ConteudoPost" class="form-control"></textarea>
+                <textarea asp-for="ConteudoPost" id="ConteudoPost" class="form-control ckeditor" name="ConteudoPost" rows="200"></textarea>
                 <span asp-validation-for="ConteudoPost" class="text-danger"></span>
             </div>
 
@@ -51,3 +53,9 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    $(document).ready(function () {
+        CKEDITOR.replace('#ConteudoPost');
+    });
+</script>
