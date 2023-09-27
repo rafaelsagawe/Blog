@@ -19,12 +19,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="ResumoPost" class="control-label"></label>
-                <input asp-for="ResumoPost" class="form-control" />
+                <textarea asp-for="ResumoPost" class="form-control"></textarea> 
                 <span asp-validation-for="ResumoPost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ConteudoPost" class="control-label"></label>
-                <input asp-for="ConteudoPost" class="form-control" />
+                <textarea asp-for="ConteudoPost" class="form-control"></textarea>
                 <span asp-validation-for="ConteudoPost" class="text-danger"></span>
             </div>
 
@@ -36,11 +36,6 @@
             </div>
             -->
 
-            <div class="form-group">
-                <label asp-for="UsuarioCriador" class="control-label"></label>
-                <input asp-for="UsuarioCriador" class="form-control" />
-                <span asp-validation-for="UsuarioCriador" class="text-danger"></span>
-            </div>
            
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

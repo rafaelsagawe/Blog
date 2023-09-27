@@ -17,13 +17,13 @@ namespace Blog.Models
         // ------------ Resumo
         [Display(Name = "Resumo do Post")] // Label na pagina
         [Required(ErrorMessage = "Este item é obrigatorio")] // Item requerido/Obrigatorio
-        [StringLength(50, ErrorMessage = "Deve conter no maximo 50 caracteres")] // Quantidade de Caracteres do campo
+        //[StringLength(50, ErrorMessage = "Deve conter no maximo 50 caracteres")] // Quantidade de Caracteres do campo
         public string ResumoPost { get; set; }
 
         // ------------ Conteudo
         [Display(Name = "Conteudo do post")] // Label na pagina
         [Required(ErrorMessage = "Este item é obrigatorio")] // Item requerido/Obrigatorio
-        [StringLength(300, ErrorMessage = "Deve conter no maximo 300 caracteres")] // Quantidade de Caracteres do campo
+        //[StringLength(300, ErrorMessage = "Deve conter no maximo 300 caracteres")] // Quantidade de Caracteres do campo
         public string ConteudoPost { get; set; }
 
         // ------------ Data
@@ -33,7 +33,7 @@ namespace Blog.Models
         public DateTime DataPost { get; set; } = DateTime.Now;
 
         // ------------ Usuário que criou a pastagem
-        public string UsuarioCriador { get; set; }
+        public string? UsuarioCriador { get; set; }
 
     }
 }

@@ -1,14 +1,47 @@
 ﻿@model IEnumerable<Blog.Models.Posts>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Postagens";
 }
 
-<h1>Index</h1>
+<h1>Postagens</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a class="btn btn-outline-primary" asp-action="Create">Criar novo post</a>
 </p>
+
+<hr />
+
+<div class="col">
+    <!--div para a aplicação do Masonry-->
+    <div class="row" data-masonry='{"horizontalOrder": true }'>
+        @foreach (var item in Model)
+        {
+            <div class="col-3 my-3">
+                <div class="card shadow">
+                    <!-- Cabeçario do card-->
+                    <a asp-action="Edit" asp-route-id="@item.IdPost" class="text-black text-center card-header">
+                        @Html.DisplayFor(modelItem => item.NomePost)
+                    </a>
+
+                    <!-- Criação do copo do card-->
+                    <div class="card-body">
+                        @Html.DisplayFor(modelItem => item.ResumoPost)
+                    </div>
+
+                    <!-- Criação do footer do card-->
+                    <div class="card-footer">
+                        @Html.DisplayFor(modelItem => item.UsuarioCriador)
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<!--
+
 <table class="table">
     <thead>
         <tr>
@@ -49,7 +82,8 @@
                 @Html.DisplayFor(modelItem => item.UsuarioCriador)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPost">Edit</a> |
+
+                <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.IdPost">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdPost">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.IdPost">Delete</a>
             </td>
@@ -57,3 +91,8 @@
 }
     </tbody>
 </table>
+-->
+@section Scripts{
+    <!-- Adição da biblioteca JavaScrit Masonry para criação de layout em grade -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
+}
