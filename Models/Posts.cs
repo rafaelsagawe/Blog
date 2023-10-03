@@ -35,5 +35,8 @@ namespace Blog.Models
         // ------------ Usuário que criou a pastagem
         public string? UsuarioCriador { get; set; }
 
+        // Propriedade de navegação
+        public int CategoriasId { get; set; }
+        public Categorias? Categorias { get; set; }
     }
 }

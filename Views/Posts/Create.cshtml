@@ -4,9 +4,9 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Criar postagem</h1>
 
-<h4>Posts</h4>
+<h4>Post</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -19,17 +19,28 @@
             </div>
             <div class="form-group">
                 <label asp-for="ResumoPost" class="control-label"></label>
-                <input asp-for="ResumoPost" class="form-control" /> 
+                <input asp-for="ResumoPost" class="form-control" />
                 <span asp-validation-for="ResumoPost" class="text-danger"></span>
             </div>
-
-            <!-- Implementação de editor de texto avançado, adicionar o id, class="ckeditor" e name -->
             <div class="form-group">
                 <label asp-for="ConteudoPost" class="control-label"></label>
-                <textarea asp-for="ConteudoPost" id="ConteudoPost" class="form-control ckeditor" name="ConteudoPost" rows="200"></textarea>
+                <input asp-for="ConteudoPost" class="form-control" />
                 <span asp-validation-for="ConteudoPost" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="DataPost" class="control-label"></label>
+                <input asp-for="DataPost" class="form-control" />
+                <span asp-validation-for="DataPost" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UsuarioCriador" class="control-label"></label>
+                <input asp-for="UsuarioCriador" class="form-control" />
+                <span asp-validation-for="UsuarioCriador" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoriasId" class="control-label"></label>
+                <select asp-for="CategoriasId" class ="form-control" asp-items="ViewBag.CategoriasId"></select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -38,15 +49,9 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar para a lista</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-<script>
-    $(document).ready(function () {
-        CKEDITOR.replace('#ConteudoPost');
-    });
-</script>

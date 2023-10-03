@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Blog.Models.Categorias>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Definicao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Definicao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoriasId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoriasId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.CategoriasId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

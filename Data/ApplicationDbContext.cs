@@ -11,5 +11,6 @@ namespace Blog.Data
         {
         }
         public DbSet<Blog.Models.Posts> Posts { get; set; } = default!;
+        public DbSet<Blog.Models.Categorias> Categorias { get; set; } = default!;
     }
 }

@@ -4,6 +4,7 @@ using Blog.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Blog.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231002161611_4 - Propriedade de navegação")]
+    partial class _4Propriedadedenavegação
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,6 +63,9 @@ namespace Blog.Data.Migrations
 
                     b.Property<DateTime>("DataPost")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("IDCategoria")
+                        .HasColumnType("int");
 
                     b.Property<string>("NomePost")
                         .IsRequired()
@@ -285,7 +291,7 @@ namespace Blog.Data.Migrations
             modelBuilder.Entity("Blog.Models.Posts", b =>
                 {
                     b.HasOne("Blog.Models.Categorias", "Categorias")
-                        .WithMany()
+                        .WithMany("Posts")
                         .HasForeignKey("CategoriasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -342,6 +348,11 @@ namespace Blog.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Blog.Models.Categorias", b =>
+                {
+                    b.Navigation("Posts");
                 });
 #pragma warning restore 612, 618
         }

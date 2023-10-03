@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Blog.Data;
 using Blog.Models;
 
+// na ViewData altera o parâmetro de CategoriasId para Categoria assim será exibido o nome no lugar do ID
+
 namespace Blog.Controllers
 {
     public class PostsController : Controller
@@ -22,9 +24,8 @@ namespace Blog.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-              return _context.Posts != null ? 
-                          View(await _context.Posts.ToListAsync()) :
-                          Problem("Entity set 'ApplicationDbContext.Posts'  is null.");
+            var applicationDbContext = _context.Posts.Include(p => p.Categorias);
+            return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Posts/Details/5
@@ -36,6 +37,7 @@ namespace Blog.Controllers
             }
 
             var posts = await _context.Posts
+                .Include(p => p.Categorias)
                 .FirstOrDefaultAsync(m => m.IdPost == id);
             if (posts == null)
             {
@@ -48,6 +50,7 @@ namespace Blog.Controllers
         // GET: Posts/Create
         public IActionResult Create()
         {
+            ViewData["CategoriasId"] = new SelectList(_context.Categorias, "CategoriasId", "Categoria");
             return View();
         }
 
@@ -56,7 +59,7 @@ namespace Blog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPost,NomePost,ResumoPost,ConteudoPost,DataPost,UsuarioCriador")] Posts posts)
+        public async Task<IActionResult> Create([Bind("IdPost,NomePost,ResumoPost,ConteudoPost,DataPost,UsuarioCriador,CategoriasId")] Posts posts)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +68,7 @@ namespace Blog.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoriasId"] = new SelectList(_context.Categorias, "CategoriasId", "Categoria", posts.CategoriasId);
             return View(posts);
         }
 
@@ -81,6 +85,7 @@ namespace Blog.Controllers
             {
                 return NotFound();
             }
+            ViewData["CategoriasId"] = new SelectList(_context.Categorias, "CategoriasId", "Categoria", posts.CategoriasId);
             return View(posts);
         }
 
@@ -89,7 +94,7 @@ namespace Blog.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdPost,NomePost,ResumoPost,ConteudoPost,DataPost,UsuarioCriador")] Posts posts)
+        public async Task<IActionResult> Edit(int id, [Bind("IdPost,NomePost,ResumoPost,ConteudoPost,DataPost,UsuarioCriador,CategoriasId")] Posts posts)
         {
             if (id != posts.IdPost)
             {
@@ -100,6 +105,8 @@ namespace Blog.Controllers
             {
                 try
                 {
+                    // pega o usuário logado e salva no campo UsuarioCriador
+                    posts.UsuarioCriador = User.Identity.Name;
                     _context.Update(posts);
                     await _context.SaveChangesAsync();
                 }
@@ -116,6 +123,7 @@ namespace Blog.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["CategoriasId"] = new SelectList(_context.Categorias, "CategoriasId", "Categoria", posts.CategoriasId);
             return View(posts);
         }
 
@@ -128,6 +136,7 @@ namespace Blog.Controllers
             }
 
             var posts = await _context.Posts
+                .Include(p => p.Categorias)
                 .FirstOrDefaultAsync(m => m.IdPost == id);
             if (posts == null)
             {
