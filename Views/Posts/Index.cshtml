@@ -7,61 +7,39 @@
 <h1>Lista de postagens</h1>
 
 <p>
-    <a asp-action="Create">Nova postagem</a>
+    <a  asp-action="Create">Nova postagem</a>
 </p>
-<table class="table table-striped shadow">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NomePost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ResumoPost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConteudoPost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataPost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCriador)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categorias)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.NomePost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResumoPost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConteudoPost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataPost)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCriador)
-            </td>
 
-            <!-- alterado o parâmetro de CategoriasId para Categoria assim será exibido o nome no lugar do ID-->
-            <td>
-                @Html.DisplayFor(modelItem => item.Categorias.Categoria)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdPost">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdPost">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdPost">Delete</a>
-            </td>
-        </tr>
+<div class="col">
+    <!-- div para aplicação do Masonry-->
+    <div class="row" data-masonry='{"horizontalOrder": true }'>
+                @foreach (var item in Model)
+        {
+            <div class="col-3 my-3">
+
+                <div class="card shadow ">
+
+                    <a class="text-dark text-center card-header">@Html.DisplayFor(Modelitem => item.NomePost)</a>
+
+                    <div class="card-body">
+                        <p>
+                            @Html.DisplayFor(modelItem => item.ResumoPost)
+                        </p>
+                    </div>
+
+                    <div class="card-footer">
+                        <p>
+                            @Html.DisplayFor(modelItem => item.UsuarioCriador)
+                            @Html.DisplayFor(modelItem => item.Categorias.Categoria)
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        }
+</div>
+
+@section Scripts{
+    <!-- Adição da biblioteca JavaScrit Masonry para criação de layout em grade -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.2/masonry.pkgd.min.js"></script>
 }
-    </tbody>
-</table>

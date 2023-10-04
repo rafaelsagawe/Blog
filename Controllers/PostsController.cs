@@ -105,7 +105,9 @@ namespace Blog.Controllers
             {
                 try
                 {
-                    // pega o usuário logado e salva no campo UsuarioCriador
+                    /* pega o usuário logado e salva no campo UsuarioCriador
+                     * tabela no banco de dados . campo do usuário = campo user do Identity User.Identity.Name
+                     */
                     posts.UsuarioCriador = User.Identity.Name;
                     _context.Update(posts);
                     await _context.SaveChangesAsync();
